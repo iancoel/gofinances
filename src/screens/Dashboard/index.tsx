@@ -1,7 +1,7 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
 import HighlightCard from '../../components/HighlightCard';
 import TransactionCard from '../../components/TransactionCard';
+import { TransactionCardProps } from '../../components/TransactionCard';
 import {
   Container,
   Header,
@@ -18,9 +18,14 @@ import {
   Title,
 } from './styles';
 
+export interface DataListProps extends TransactionCardProps {
+  id: string;
+}
+
 const Dashboard = () => {
-  const data = [
+  const data: DataListProps[] = [
     {
+      id: '1',
       type: 'positive',
       title: 'Desenvolvimento de Sites',
       amount: 'R$ 12.000,00',
@@ -31,8 +36,8 @@ const Dashboard = () => {
       date: '13/04/2020',
     },
     {
+      id: '2',
       type: 'negative',
-
       title: 'Hamburgueria Pizzy',
       amount: 'R$ 59,00',
       category: {
@@ -42,6 +47,7 @@ const Dashboard = () => {
       date: '10/04/2020',
     },
     {
+      id: '3',
       type: 'negative',
       title: 'Aluguel',
       amount: 'R$ 1.200,00',
@@ -96,11 +102,8 @@ const Dashboard = () => {
         <Title>Listagem</Title>
         <TransactionList
           data={data}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => <TransactionCard data={item} />}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingBottom: StatusBar.currentHeight,
-          }}
         />
       </Transactions>
     </Container>
